@@ -1,5 +1,3 @@
-using HighFlyerCompanion.Data.DTO;
-using HighFlyerCompanion.Data.Service;
 using Newtonsoft.Json;
 using System.ComponentModel;
 

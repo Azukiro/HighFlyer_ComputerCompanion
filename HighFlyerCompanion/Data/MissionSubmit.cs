@@ -1,10 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace HighFlyerCompanion.Data
 {
     /// <summary>
-    /// Data for validate a mission form 
+    /// Data for validate a mission form
     /// </summary>
     public class MissionSubmit
     {

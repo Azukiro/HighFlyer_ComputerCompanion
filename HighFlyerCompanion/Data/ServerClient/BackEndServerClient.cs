@@ -1,14 +1,7 @@
-﻿using GoogleGson;
-using HighFlyerCompanion.Data.DTO;
-using HighFlyerCompanion.Data.Service;
+﻿using HighFlyerCompanion.Data.DTO;
 using Newtonsoft.Json;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HighFlyerCompanion.Data.ServerClient
 {
@@ -23,7 +16,6 @@ namespace HighFlyerCompanion.Data.ServerClient
         {
             _client = new RestClient("http://127.0.0.1:5000");
         }
-
 
         /// <summary>
         /// Upload mission data to the backend server

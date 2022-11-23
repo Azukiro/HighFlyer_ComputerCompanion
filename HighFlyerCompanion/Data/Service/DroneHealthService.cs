@@ -1,5 +1,4 @@
 ﻿using HighFlyerCompanion.Data.ServerClient;
-using RestSharp;
 
 namespace HighFlyerCompanion.Data.Service
 {

@@ -1,10 +1,6 @@
 using HighFlyerCompanion.Data.DTO;
 using HighFlyerCompanion.Data.ServerClient;
-using Newtonsoft.Json;
-using System.Net;
 using System.Text;
-using System.Text.Json;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace HighFlyerCompanion.Data.Service;
 
