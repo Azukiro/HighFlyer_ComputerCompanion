@@ -1,0 +1,53 @@
+﻿@page "/history"
+
+@using HighFlyerCompanion.Data
+@using HighFlyerCompanion.Data.Service
+@using System.Collections.Generic
+@inject MissionService MissionService
+
+<h1>Mission History</h1>
+
+<p>History of the drone HighFlyer N°0</p>
+
+@if (missions == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Building</th>
+				<th>Face</th>
+				<th>Date</th>
+				<th>TimeTaken</th>
+				<th>Summary</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var mission in missions)
+			{
+				<tr>
+					<td><a href="@mission.Link">@mission.BuildingName</a></td>
+					<td>@(mission.Face.GetDescription<FaceOrientation>())</td>
+					<td>@mission.Date.ToShortDateString()</td>
+					<td>@mission.TimeTaken</td>
+					<td>@mission.Commentary</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@code {
+
+    
+	private List<Mission> missions;
+
+	protected override async Task OnInitializedAsync()
+	{
+		MissionService.GenerateAsync(DateTime.Now);
+		missions = await MissionService.GetMissionsAsync();
+	}
+}

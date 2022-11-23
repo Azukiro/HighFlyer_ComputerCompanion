@@ -1,0 +1,50 @@
+﻿@page "/mission"
+@using HighFlyerCompanion.Data
+@using HighFlyerCompanion.Data.Service
+@using System.Diagnostics
+@inject DroneOnMissionService DroneOnMissionService
+@inject MissionService MissionService
+<h1>Mission</h1>
+
+@if(Launch==false)
+{
+
+    <p role="status">Remember berfore start a mission :</p>
+    <ul>
+        <li>Charge fully the drone</li>
+        <li>Be in front of the wall</li>
+    </ul>
+    <button class="btn btn-primary" @onclick="LaunchMission">Launch</button>
+
+}
+else if(Status==MissionStatus.SUCESS)
+{
+    <MissionEndForm/>
+}
+else
+{
+    <p>Drone is fligying</p>
+    <p>Drone status : @(Status.GetDescription<MissionStatus>())</p>
+}
+
+
+@code {
+
+    public MissionStatus Status { get; set; }
+    public bool Launch { get; set; }
+    private async void LaunchMission()
+    {
+        //await DroneOnMissionService.LaunchMission();
+        Launch = true;
+        Status = MissionStatus.SUCESS;
+        //var timer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+
+        //while (await timer.WaitForNextTickAsync())
+        //{
+        //    Status = await DroneOnMissionService.GetStatus();
+        //    StateHasChanged();
+        //}
+    }
+
+    
+}

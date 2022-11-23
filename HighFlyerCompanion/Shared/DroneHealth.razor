@@ -1,0 +1,28 @@
+﻿@using System.Threading;
+@using HighFlyerCompanion.Data.Service
+@inject DroneHealthService DroneHealthService
+
+<div class="d-flex">
+    <h4 class="me-5">State : @DroneHealthService.DroneState</h4>
+    <h4 class="me-5">@Altitude ft</h4>
+    <h4 >@Health %</h4>
+    
+</div>
+
+@code {
+
+
+    private float Altitude;
+    private int Health;
+    protected override async Task OnInitializedAsync(){
+        var timer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+
+        while (await timer.WaitForNextTickAsync())
+        {
+            Health = await DroneHealthService.GetBattery();
+            Altitude = await DroneHealthService.GetAltitude();
+            StateHasChanged();
+        }
+    }
+
+}

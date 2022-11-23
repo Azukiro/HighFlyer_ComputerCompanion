@@ -1,0 +1,57 @@
+﻿@inject DroneOnMissionService DroneOnMissionService
+@inject MissionService MissionService
+@using HighFlyerCompanion.Data
+@using HighFlyerCompanion.Data.DTO
+@using HighFlyerCompanion.Data.Service
+@using System.Diagnostics
+
+<p>Mission ended with sucess</p>
+<p>U can now send the mission</p>
+<EditForm Model="@missionSubmit" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <p>
+        <label>
+            Building's Name:
+            <InputText id="path" @bind-Value="missionSubmit.BuildingName" />
+        </label>
+    </p>
+    <p>
+        <InputSelect @bind-Value="@missionSubmit.Face">
+
+            @foreach (FaceOrientation face in Enum.GetValues(typeof(FaceOrientation)))
+            {
+
+                <option value="@face">@(face.GetDescription<FaceOrientation>())</option>
+            }
+        </InputSelect>
+    </p>
+
+    <p>
+        <label>
+            Commentary:
+            <InputText id="path" @bind-Value="missionSubmit.Commentary" />
+        </label>
+    </p>
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    // Demonstrates how a parent component can supply parameters
+    public MissionSubmit missionSubmit = new();
+    private Stopwatch clock;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        
+        clock = Stopwatch.StartNew();
+    }
+    private async void HandleValidSubmit()
+    {
+        clock.Stop();
+        MissionDTOGet missionImageDataJson = await DroneOnMissionService.GetImages();
+        await MissionService.PublishMission(missionSubmit, clock.Elapsed.TotalMilliseconds, missionImageDataJson);
+    }
+}
